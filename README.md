@@ -2,6 +2,7 @@
 
 [Visit the site here](https://littlelemon.software.mintrishere.com/)
 
+![image](https://github.com/user-attachments/assets/42d4b8a1-1058-40a1-8338-cd541b68f7d8)
 
 This project is a modern web application built using **Next.js**, **ShadCN/UI**, **TypeScript**, **Apollo Client**, and **Vercel** for deployment. The back-end is powered by **WordPress** (Headless CMS) which exposes data through **GraphQL** to provide blog and user data.
 
