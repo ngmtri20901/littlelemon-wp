@@ -1,3 +1,4 @@
+import React, { Suspense } from "react"
 import type { Metadata } from "next"
 import { MenuList } from "./menu-list"
 import { FilterSidebar } from "./filter-sidebar"
@@ -14,11 +15,15 @@ export default function MenuPage() {
 
       <div className="flex flex-col md:flex-row gap-8">
         <div className="w-full md:w-1/4">
-          <FilterSidebar />
+          <Suspense fallback={<div>Loading filters...</div>}>
+            <FilterSidebar />
+          </Suspense>
         </div>
 
         <div className="w-full md:w-3/4">
-          <MenuList />
+          <Suspense fallback={<div>Loading menu...</div>}>
+            <MenuList />
+          </Suspense>
         </div>
       </div>
     </div>
