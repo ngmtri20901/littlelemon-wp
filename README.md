@@ -1,6 +1,8 @@
 # Little Lemon Project
 
 [Visit the site here](https://littlelemon.software.mintrishere.com/)
+
+
 This project is a modern web application built using **Next.js**, **ShadCN/UI**, **TypeScript**, **Apollo Client**, and **Vercel** for deployment. The back-end is powered by **WordPress** (Headless CMS) which exposes data through **GraphQL** to provide blog and user data.
 
 ## Tech Stack
