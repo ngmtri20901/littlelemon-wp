@@ -56,15 +56,16 @@ export function LoginForm() {
       })
 
       localStorage.setItem("token", data.login.authToken)
+      localStorage.setItem("user", JSON.stringify(data.login.user))
       toast({
-        title: "Đăng nhập thành công",
-        description: `Xin chào ${data.login.user.name}`,
+        title: "Login Successful!",
+        description: `Welcome, ${data.login.user.name}. Redirecting to your profile...`,
       })
       router.push("/account/profile")
     } catch (err: any) {
       toast({
-        title: "Sai email hoặc mật khẩu",
-        description: err.message || "Vui lòng thử lại",
+        title: "Incorrect Email or Password",
+        description: err.message || "Please try again.",
         variant: "destructive",
       })
     } finally {

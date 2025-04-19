@@ -18,6 +18,7 @@ import { Input } from "@/components/ui/input"
 import { toast } from "@/components/ui/use-toast"
 import { useMutation } from "@apollo/client"
 import { REGISTER_USER } from "@/api/graphql/register"
+import { UPDATE_USER } from "@/api/graphql/updateUser"
 import { Eye, EyeOff } from "lucide-react"
 
 const formSchema = z
@@ -42,6 +43,7 @@ export function SignupForm() {
   const router = useRouter()
   const [isLoading, setIsLoading] = React.useState(false)
   const [registerUser] = useMutation(REGISTER_USER)
+  const [updateUser]   = useMutation(UPDATE_USER)
   const [showPassword, setShowPassword] = React.useState(false)
   const [showConfirm, setShowConfirm] = React.useState(false)
 
@@ -59,24 +61,34 @@ export function SignupForm() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true)
     try {
-      await registerUser({
+      // 1) register
+      const { data } = await registerUser({
         variables: {
           username: values.email,
           email: values.email,
           password: values.password,
         },
       })
+      const newUserId = data.registerUser.user.id
+
+      // 2) update the display name
+      await updateUser({
+        variables: {
+          id:   newUserId,
+          name: values.name,
+        },
+      })
 
       toast({
-        title: "Account created!",
-        description: "You have successfully created an account.",
+        title: "Signup Successful!",
+        description: "Your account has been created. Please log in to continue.",
       })
 
       router.push("/auth/login")
     } catch (err: any) {
       toast({
-        title: "Signup failed",
-        description: err.message || "Something went wrong.",
+        title: "Signup Failed",
+        description: err.message || "Something went wrong. Please try again.",
         variant: "destructive",
       })
     } finally {
