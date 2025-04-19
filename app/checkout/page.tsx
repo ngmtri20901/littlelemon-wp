@@ -1,5 +1,14 @@
 import type { Metadata } from "next"
-import { CheckoutForm } from "./checkout-form"
+import dynamic from "next/dynamic"
+
+// Dynamically import CheckoutForm as client-only to avoid SSR window/location errors
+const CheckoutForm = dynamic(
+  () => import("./checkout-form").then((mod) => mod.CheckoutForm),
+  {
+    ssr: false,
+    loading: () => <div>Loading checkout...</div>,
+  }
+)
 
 export const metadata: Metadata = {
   title: "Checkout | Little Lemon",
